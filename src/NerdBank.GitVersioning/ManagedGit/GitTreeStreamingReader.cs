@@ -4,6 +4,7 @@
 #nullable enable
 
 using System.Buffers;
+using System.Diagnostics;
 
 namespace Nerdbank.GitVersioning.ManagedGit;
 
@@ -26,6 +27,8 @@ public class GitTreeStreamingReader
     /// </returns>
     public static GitObjectId FindNode(Stream stream, ReadOnlySpan<byte> name)
     {
+        Debugger.Launch();
+
         byte[] buffer = ArrayPool<byte>.Shared.Rent((int)stream.Length);
         var contents = new Span<byte>(buffer, 0, (int)stream.Length);
 
