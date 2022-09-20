@@ -27,7 +27,10 @@ public class GitTreeStreamingReader
     /// </returns>
     public static GitObjectId FindNode(Stream stream, ReadOnlySpan<byte> name)
     {
-        Debugger.Launch();
+        if (Environment.GetEnvironmentVariable("DEBUG_NBGV")?.Equals("true", StringComparison.OrdinalIgnoreCase) == true)
+        {
+            Debugger.Launch();
+        }
 
         byte[] buffer = ArrayPool<byte>.Shared.Rent((int)stream.Length);
         var contents = new Span<byte>(buffer, 0, (int)stream.Length);
